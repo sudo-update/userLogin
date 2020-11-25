@@ -48,7 +48,8 @@ UserLogin::UserLogin() {
 bool UserLogin::ReadIn(const string& filename) {
   // TODO: check me
   int has_anything_been_done = 0;
-  ifstream input_file_stream ("userDetails.txt", ios::in);
+  ifstream input_file_stream (filename, ios::in);
+  if (!input_file_stream.is_open()) { return false; }
   while (!input_file_stream.eof()) {
     pair<string, string> reader;
     string reader1, reader2;
