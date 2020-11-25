@@ -46,40 +46,72 @@ UserLogin::UserLogin() {
 }
 
 bool UserLogin::ReadIn(const string& filename) {
-  // TODO: Implement this function, including the return statement.
-  // Before submitting your assignment, delete all TODO comments
-  // including this one.
-  return false;
+  // TODO: check me
+  int has_anything_been_done = 0;
+  ifstream input_file_stream ("userDetails.txt", ios::in);
+  while (!input_file_stream.eof()) {
+    pair<string, string> reader;
+    string reader1, reader2;
+    input_file_stream >> reader1 >> reader2;
+    reader.first = reader1;
+    reader.second = reader2;
+    table_.insert(reader);
+    has_anything_been_done++;
+  }
+  if (has_anything_been_done != 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 size_t UserLogin::NumberOfUsers() {
-  // TODO: Implement this function, including the return statement.
-  // Before submitting your assignment, delete all TODO comments
-  // including this one.
-  return 0;
+  // TODO: check me - should work
+  return table_.size();
 }
 
 bool UserLogin::ValidateUser(const string& userName) {
-  // TODO: Implement this function, including the return statement.
-  // Before submitting your assignment, delete all TODO comments
-  // including this one.
-  return false;
+  // TODO: check me - damn c++17 screwed us, contains is in c++20 table_.contains();, its really that easy...
+  // so i checked the official implementation of contains(), and its literally the same logic haha
+  return (table_.find(userName) != table_.end());
 }
 
 bool UserLogin::AuthenticateUser(const string& userName, const string& passWord) {
-  // TODO: Implement this function, including the return statement.
-  // Before submitting your assignment, delete all TODO comments
-  // including this one.
-  return false;
+  // TODO: check me
+  unordered_map<string, string>::iterator authenticator_finder;
+  authenticator_finder = table_.find(userName);
+  if (authenticator_finder == table_.end()) { // cannot find user
+    return false;
+  } else { // found user
+    if ((*authenticator_finder).second == passWord) { // check password
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
 
 string UserLogin::GetPassword(const string& userName) {
-  throw range_error("Not implemented yet");
+  // TODO: check me
+  unordered_map<string, string>::iterator password_finder;
+  password_finder = table_.find(userName);
+  if (password_finder == table_.end()) {
+    throw range_error("userName does not exist");
+  } else {
+    return ((*password_finder).second);
+  }
 }
 
 size_t UserLogin::WordBucketId(const string& userName) {
-  // TODO: Implement this function, including the return statement.
-  // Before submitting your assignment, delete all TODO comments
-  // including this one.
-  return 0;
+  // TODO: check me
+  unordered_map<string, string>::iterator bucket_finder;
+  bucket_finder = table_.find(userName);
+  if (bucket_finder == table_.end()) {
+    throw range_error("userName does not exist");
+
+  } else {
+    return table_.bucket(userName);
+  }
+
 }
