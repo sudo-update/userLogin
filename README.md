@@ -3,3 +3,5 @@
 Group members:
 
 Sean Javiya - seanjaviya@csu.fullerton.edu
+
+Rachel Clark - clarkrachel239@csu.fullerton.edu
