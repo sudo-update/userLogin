@@ -41,12 +41,11 @@ public:
     unordered_map<string, string> table_;
 };
 
-// CONSTRUCTOR - ALREADY COMPLETE
+
 UserLogin::UserLogin() {
 }
 
 bool UserLogin::ReadIn(const string& filename) {
-  // TODO: check me
   int has_anything_been_done = 0;
   ifstream input_file_stream (filename, ios::in);
   if (!input_file_stream.is_open()) { return false; }
@@ -67,18 +66,14 @@ bool UserLogin::ReadIn(const string& filename) {
 }
 
 size_t UserLogin::NumberOfUsers() {
-  // TODO: check me - should work
   return table_.size();
 }
 
 bool UserLogin::ValidateUser(const string& userName) {
-  // TODO: check me - damn c++17 screwed us, contains is in c++20 table_.contains();, its really that easy...
-  // so i checked the official implementation of contains(), and its literally the same logic haha
   return (table_.find(userName) != table_.end());
 }
 
 bool UserLogin::AuthenticateUser(const string& userName, const string& passWord) {
-  // TODO: check me
   unordered_map<string, string>::iterator authenticator_finder;
   authenticator_finder = table_.find(userName);
   if (authenticator_finder == table_.end()) { // cannot find user
@@ -94,7 +89,6 @@ bool UserLogin::AuthenticateUser(const string& userName, const string& passWord)
 }
 
 string UserLogin::GetPassword(const string& userName) {
-  // TODO: check me
   unordered_map<string, string>::iterator password_finder;
   password_finder = table_.find(userName);
   if (password_finder == table_.end()) {
@@ -105,12 +99,10 @@ string UserLogin::GetPassword(const string& userName) {
 }
 
 size_t UserLogin::WordBucketId(const string& userName) {
-  // TODO: check me
   unordered_map<string, string>::iterator bucket_finder;
   bucket_finder = table_.find(userName);
   if (bucket_finder == table_.end()) {
     throw range_error("userName does not exist");
-
   } else {
     return table_.bucket(userName);
   }
